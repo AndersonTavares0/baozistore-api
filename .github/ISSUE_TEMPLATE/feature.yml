@@ -1,0 +1,16 @@
+name: Sugerir melhoria
+description: Proponha uma melhoria relacionada ao escopo do projeto.
+title: "[Melhoria]: "
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Qual problema a melhoria resolve?
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: Qual resultado você espera?
+    validations:
+      required: true

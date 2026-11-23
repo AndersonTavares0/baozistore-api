@@ -1,5 +1,6 @@
 package br.com.uninter.baozistore.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,6 +20,7 @@ public class Produto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Long id;
 
     @NotBlank
@@ -28,5 +30,6 @@ public class Produto {
     @Positive
     private BigDecimal preco;
 
+    @NotNull
     private Boolean estoque;
 }

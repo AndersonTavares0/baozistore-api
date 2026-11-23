@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Política de segurança
+    url: https://github.com/AndersonTavares0/baozistore-api/blob/main/SECURITY.md
+    about: Não publique detalhes de vulnerabilidades em uma issue pública.

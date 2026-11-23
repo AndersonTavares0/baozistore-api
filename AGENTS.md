@@ -5,14 +5,14 @@ Como rodar, rotas e exemplos de JSON estão no `README.md`; aqui fica só o que 
 
 ## Estrutura
 
-Três pacotes: `model`, `repository`, `controller`. Uma regra que passe de duas linhas vira `service`; hoje não existe nenhuma.
+Pacotes `model`, `repository` e `controller`; regras de negócio ficam em `service`. Contratos HTTP específicos ficam em `dto`.
 
 ## Convenções
 
-- Entidade = classe JPA com Lombok (`@Getter @Setter`), sem DTO enquanto o JSON da entidade for o mesmo do DER.
+- Entidades JPA usam Lombok (`@Getter @Setter`); DTOs mantêm o contrato HTTP quando ele difere do mapeamento relacional.
 - POST devolve `201` com `Location`, DELETE devolve `204`, ID inexistente devolve `404`.
-- Validação Jakarta nos campos que chegam por POST; dinheiro em `BigDecimal`.
-- Commit no padrão Conventional Commits, direto na `main`.
+- Validação Jakarta nos dados recebidos; dinheiro em `BigDecimal`.
+- Alterações entram na `main` somente por PR, com CI aprovada.
 
 ## Rodar
 
@@ -22,4 +22,4 @@ O H2 é em memória: cada restart zera os dados e reinicia os IDs em 1.
 ## Regras detalhadas
 
 - Java e estilo: `.agents/rules/java.md`
-- Git: `.agents/rules/git.md`
+- Git e PRs: `.agents/rules/git.md`
