@@ -1,0 +1,4 @@
+# normaliza fim de linha na entrada
+* text=auto eol=lf
+/mvnw text eol=lf
+*.cmd text eol=crlf
