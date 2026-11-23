@@ -165,7 +165,7 @@
       }
     },
     {
-      "name": "11. Consultar Produto por ID",
+      "name": "8. Consultar Cliente por ID",
       "request": {
         "method": "GET",
         "url": {
@@ -183,7 +183,7 @@
       }
     },
     {
-      "name": "10. Consultar Cliente por ID",
+      "name": "9. Consultar Produto por ID",
       "request": {
         "method": "GET",
         "url": {
@@ -201,7 +201,7 @@
       }
     },
     {
-      "name": "8. Consultar Pedido por ID",
+      "name": "10. Consultar Pedido por ID",
       "request": {
         "method": "GET",
         "url": {
@@ -219,7 +219,7 @@
       }
     },
     {
-      "name": "12. Apagar Cliente de Teste",
+      "name": "11. Apagar Cliente de Teste",
       "request": {
         "method": "DELETE",
         "url": {
