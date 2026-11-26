@@ -5,7 +5,7 @@ skinparam shadowing false
 
 actor "Usuário da API" as Usuario
 
-rectangle "API REST — Baozi Store" {
+rectangle "API REST — Baozi Store" <<system>> {
   package "Clientes" {
     usecase "Cadastrar cliente" as CadastrarCliente
     usecase "Listar clientes" as ListarClientes
@@ -24,6 +24,9 @@ rectangle "API REST — Baozi Store" {
     usecase "Consultar pedido por ID" as ConsultarPedido
     usecase "Excluir pedido" as ExcluirPedido
   }
+
+  usecase "Verificar pedidos vinculados" as VerificarVinculos
+  usecase "Validar cliente, produto e estoque" as ValidarPedido
 }
 
 Usuario -- CadastrarCliente
@@ -38,4 +41,8 @@ Usuario -- RegistrarPedido
 Usuario -- ListarPedidos
 Usuario -- ConsultarPedido
 Usuario -- ExcluirPedido
+
+ExcluirCliente ..> VerificarVinculos : <<include>>
+ExcluirProduto ..> VerificarVinculos : <<include>>
+RegistrarPedido ..> ValidarPedido : <<include>>
 @enduml
