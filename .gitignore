@@ -35,3 +35,5 @@ build/
 ### Local ###
 application-local.properties
 *.log
+docs/entrega/
+docs/prints/
