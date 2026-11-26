@@ -1,9 +1,11 @@
 package br.com.uninter.baozistore.controller;
 
 import br.com.uninter.baozistore.model.Produto;
+import br.com.uninter.baozistore.repository.PedidoRepository;
 import br.com.uninter.baozistore.repository.ProdutoRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +18,7 @@ import java.util.List;
 public class ProdutoController {
 
     private final ProdutoRepository repository;
+    private final PedidoRepository pedidoRepository;
 
     @GetMapping
     public List<Produto> listar() {
@@ -37,6 +40,9 @@ public class ProdutoController {
     public ResponseEntity<Void> apagar(@PathVariable Long id) {
         if (!repository.existsById(id)) {
             return ResponseEntity.notFound().build();
+        }
+        if (pedidoRepository.existsByProduto_Id(id)) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
         repository.deleteById(id);
         return ResponseEntity.noContent().build();

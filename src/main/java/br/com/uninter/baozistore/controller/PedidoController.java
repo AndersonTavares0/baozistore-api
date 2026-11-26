@@ -1,7 +1,9 @@
 package br.com.uninter.baozistore.controller;
 
-import br.com.uninter.baozistore.model.Pedido;
+import br.com.uninter.baozistore.dto.PedidoRequest;
+import br.com.uninter.baozistore.dto.PedidoResponse;
 import br.com.uninter.baozistore.repository.PedidoRepository;
+import br.com.uninter.baozistore.service.PedidoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,21 +18,23 @@ import java.util.List;
 public class PedidoController {
 
     private final PedidoRepository repository;
+    private final PedidoService service;
 
     @GetMapping
-    public List<Pedido> listar() {
-        return repository.findAll();
+    public List<PedidoResponse> listar() {
+        return repository.findAll().stream().map(PedidoResponse::from).toList();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Pedido> buscar(@PathVariable Long id) {
-        return repository.findById(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<PedidoResponse> buscar(@PathVariable Long id) {
+        return repository.findById(id).map(PedidoResponse::from).map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public ResponseEntity<Pedido> criar(@RequestBody @Valid Pedido pedido) {
-        Pedido salvo = repository.save(pedido);
-        return ResponseEntity.created(URI.create("/pedidos/" + salvo.getId())).body(salvo);
+    public ResponseEntity<PedidoResponse> criar(@RequestBody @Valid PedidoRequest request) {
+        PedidoResponse salvo = service.criar(request);
+        return ResponseEntity.created(URI.create("/pedidos/" + salvo.id())).body(salvo);
     }
 
     @DeleteMapping("/{id}")

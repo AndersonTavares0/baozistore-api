@@ -1,8 +1,8 @@
 # Git
 
 - Conventional Commits: `feat:`, `fix:`, `docs:`, `chore:`, `test:`, `refactor:`.
-- Trunk-based: commit direto na `main`, sem branch por tarefa.
-- Um commit por etapa concluída; mensagem no imperativo e em português (`feat: adiciona CRUD de pedidos`).
-- `target/`, `.idea/`, `*.iml` e segredos ficam fora do repositório (já cobertos pelo `.gitignore`).
+- GitHub Flow: use branches curtas `feat/*`, `fix/*`, `docs/*` ou `ci/*`; nunca faça commit ou push direto na `main`.
+- Abra PR para `main`, aguarde CI verde e conversas resolvidas; integração por Squash.
+- Título de PR em Conventional Commits; explique contexto, alteração e testes no template.
+- `target/`, `.idea/`, `.iml`, credenciais e dados pessoais de teste ficam fora do repositório.
 - Credenciais de banco chegam por variável de ambiente (`MYSQL_USER`, `MYSQL_PASSWORD`), nunca no arquivo versionado.
-- Tag anotada `v1.0.0` marca a versão entregue.
