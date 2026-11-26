@@ -1,25 +1,25 @@
 # AGENTS.md
 
-API REST da Baozi Store: Java 21 + Spring Boot 4.2 + Spring Data JPA + H2.
-Como rodar, rotas e exemplos de JSON estão no `README.md`; aqui fica só o que o código não mostra.
+API REST acadêmica da Baozi Store (Java 21, Spring Boot 4.2.0, Spring Data JPA, H2 em memória com perfil opcional `mysql`). Detalhes de rotas e uso para humanos ficam em [`README.md`](README.md).
 
-## Estrutura
+## Arquitetura e convenções
 
-Pacotes `model`, `repository` e `controller`; regras de negócio ficam em `service`. Contratos HTTP específicos ficam em `dto`.
+- Camadas: `model` (entidades JPA com Lombok `@Getter @Setter`), `repository` (Spring Data JPA), `controller` (`@RestController` no plural), `service` (regras de negócio com múltiplas decisões) e `dto` (contratos HTTP desacoplados dos proxies JPA).
+- Contratos HTTP: `POST` retorna `201` + `Location`, `DELETE` retorna `204`, ID/referência ausente retorna `404`, regra de negócio violada retorna `409` e corpo inválido retorna `400`.
+- Tipos e validação: valide entradas com Jakarta Bean Validation; use `BigDecimal` para valores monetários e `LocalDate` (`yyyy-MM-dd`) para datas.
+- Banco em memória: o perfil padrão (`H2`) reinicia os dados e a sequência de IDs a cada startup; use o perfil `mysql` para persistência local.
 
-## Convenções
+## Verificação obrigatória
 
-- Entidades JPA usam Lombok (`@Getter @Setter`); DTOs mantêm o contrato HTTP quando ele difere do mapeamento relacional.
-- POST devolve `201` com `Location`, DELETE devolve `204`, ID inexistente devolve `404`.
-- Validação Jakarta nos dados recebidos; dinheiro em `BigDecimal`.
-- Alterações entram na `main` somente por PR, com CI aprovada.
+Antes de concluir qualquer alteração ou abrir PR, execute a mesma verificação da CI e confirme todos os testes passando:
 
-## Rodar
+```bash
+./mvnw --batch-mode --no-transfer-progress verify
+```
 
-`./mvnw spring-boot:run` — precisa de JDK 21 no `JAVA_HOME` (nesta máquina: `~/.local/opt/jdk-21.0.13.1+2`).
-O H2 é em memória: cada restart zera os dados e reinicia os IDs em 1.
+> Ambiente local: `./mvnw` exige JDK 21 no `JAVA_HOME` (nesta máquina: `~/.local/opt/jdk-21.0.13.1+2`).
 
-## Regras detalhadas
+## Regras detalhadas (leitura sob demanda)
 
-- Java e estilo: `.agents/rules/java.md`
-- Git e PRs: `.agents/rules/git.md`
+- Ao criar ou editar código Java, entidades, DTOs, controllers ou testes: leia [`.agents/rules/java.md`](.agents/rules/java.md).
+- Ao criar branches, commitar, abrir PR ou alterar arquivos ignorados/pessoais: leia [`.agents/rules/git.md`](.agents/rules/git.md).
